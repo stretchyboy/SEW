@@ -9,8 +9,11 @@ export default defineConfig({
         react(),
         tailwind({
             applyBaseStyles: false
-        })
+        }),
     ],
+    experimental: {
+        contentLayer: true,
+      },
     output: 'hybrid',
     adapter: netlify()
 });

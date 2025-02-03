@@ -1,0 +1,26 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const events = await getCollection("events");
+  return events.map((event) => ({
+    params: {
+      id: event.id,
+    },
+    props: { event },
+  }));
+};
+
+type Props = { event: CollectionEntry<"events"> };
+
+const { event } = Astro.props;
+const { data } = event;
+---
+
+<Layout title={data.Name}>
+  <h1>{data["Name"]}</h1>
+  <p>{data["Start"]?.toDateString()}</p>
+  <p>{data["Meet At"]}</p>
+</Layout>
